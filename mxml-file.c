@@ -1596,7 +1596,7 @@ mxml_load_data(
 	while ((ch = (*getc_cb)(p, &encoding)) != EOF)
 	{
 	  if (ch == '>' && bufptr > (buffer + 4) &&
-	      bufptr[-3] != '-' && bufptr[-2] == '-' && bufptr[-1] == '-')
+	      bufptr[-2] == '-' && bufptr[-1] == '-')
 	    break;
 	  else if (mxml_add_char(ch, &bufptr, &buffer, &bufsize))
 	    goto error;
@@ -1911,7 +1911,7 @@ mxml_load_data(
         * Handle close tag...
 	*/
 
-        if (!parent || strcmp(buffer + 1, parent->value.element.name))
+        if (!parent)
 	{
 	 /*
 	  * Close tag doesn't match tree; print an error for now...
