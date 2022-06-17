@@ -2259,12 +2259,6 @@ mxml_parse_element(
 
     *ptr = '\0';
 
-    if (mxmlElementGetAttr(node, name))
-    {
-      mxml_error("Duplicate attribute '%s' in element %s on line %d.", name, node->value.element.name, *line);
-      goto error;
-    }
-
     while (ch != EOF && mxml_isspace(ch))
     {
       ch = (*getc_cb)(p, encoding);
