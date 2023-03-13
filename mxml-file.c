@@ -1421,12 +1421,6 @@ mxml_load_data(
     free(buffer);
     return (NULL);
   }
-  else if (ch != '<' && !top)
-  {
-    free(buffer);
-    mxml_error("XML does not start with '<' (saw '%c').", ch);
-    return (NULL);
-  }
 
   do
   {
@@ -1626,15 +1620,6 @@ mxml_load_data(
 
 	*bufptr = '\0';
 
-        if (!parent && first)
-	{
-	 /*
-	  * There can only be one root element!
-	  */
-
-	  mxml_error("<%s> cannot be a second root node after <%s> on line %d.", buffer, first->value.element.name, line);
-          goto error;
-	}
 
 	if ((node = mxmlNewElement(parent, buffer)) == NULL)
 	{
@@ -1654,8 +1639,6 @@ mxml_load_data(
             node = NULL;
         }
 
-	if (node && !first)
-	  first = node;
       }
       else if (!strcmp(buffer, "![CDATA["))
       {
