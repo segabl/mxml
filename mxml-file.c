@@ -2256,10 +2256,12 @@ mxml_parse_element(
       * Read the attribute value...
       */
 
-      while ((ch = (*getc_cb)(p, encoding)) != EOF && mxml_isspace(ch))
+      while ((ch = (*getc_cb)(p, encoding)) != EOF)
       {
         if (ch == '\n')
           (*line)++;
+        else if (!mxml_isspace(ch) && ch != '=')
+          break;
       }
 
       if (ch == EOF)
